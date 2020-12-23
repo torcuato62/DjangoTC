@@ -1,0 +1,39 @@
+<form method="post" action="">
+  {% csrf_token %}
+  <div class="modal-header">
+    <h3 class="modal-title">Detalles del Permiso</h3>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+    <div class="modal-body">
+      <div class="">
+        Fecha Solicitado: {{ permiso.perFechaHora }}
+      </div>
+      <div class="">
+        Solicitante: {{ permiso.perUsuario.get_full_name }}
+      </div>
+      <div class="">
+        Permiso: {{ permiso.perTPermiso }} 
+      </div>
+      <div class="">
+          Último Estado: {{ permiso.perUltimoEstado }} 
+      </div>
+      {% for field in form %}
+      <div class="form-group">
+        <div class="{% if field.errors %} invalid{% endif %}">
+          <input class="aria-hidden" id="id_{{ field.name }}" name="{{ field.name }}" type="hidden" value="{{ field.value }}">
+          {{ field }}
+          {% for error in field.errors %} 
+            <p class="help-block">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="submit-btn btn btn-primary" data-dismiss="modal">Ok</button>
+    </div>
+</form>

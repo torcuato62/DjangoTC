@@ -1,0 +1,18 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+
+    
+    <p>Aquí debajo, encontrará la información de sus Permisos:</p>
+    <ul>
+        {% for permiso in permisos %}
+        <li><p>{{permiso.perFechaHora}} - {{permiso.perTPermiso}} - {{permiso.perEstado}} - {{permiso.perUsuarioAutoriza.last_name}}
+            {% if permiso.perEstado.estId > 1 %}
+            <button type="button" id="ver-permiso" class="bs-modal btn btn-sm " data-form-url="{% url 'permiso_ver' pk=permiso.perIdpermiso tpermiso=permiso.perTPermiso.tperId %}">
+                <span class="fa fa-eye"></span>
+              </button>
+            {% endif %}    
+        </p></li>
+        {% endfor %}
+    </ul>
+    {% include 'gestionPermisos/pagination.html' with page=page_obj %}
+{% endblock %}

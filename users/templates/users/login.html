@@ -1,0 +1,17 @@
+{% extends 'gestionPermisos/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h2>Iniciar sesión</h2>
+
+<form method="POST">
+<div class="form-group">
+    {{ form|crispy }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Login</button>
+</div>
+</form>
+
+<hr />
+<a href="register">Registrar usuario</a>
+{% endblock %}

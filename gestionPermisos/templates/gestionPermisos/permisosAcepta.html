@@ -1,0 +1,20 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+
+    
+<h2>Aceptar Permisos</h2>
+    
+    <p>Aquí debajo, encontrará la información de Permisos solicitados por el personal y a Aceptar.</p>
+    <form method="POST">{% csrf_token %}
+        <table>
+            <thead><th>Seleccione</th><th>Descripción</th></thead>
+            {% for field in permisos %}
+                <tr><td><input type="checkbox" name="idpermiso" value="{{field.perIdpermiso}}"></td> </td><td>{{field.perFechaHora}}{{field.perTPermiso}}-{{field.perUsuario.get_full_name}}</td></tr>
+            {% endfor %}
+        </table>
+        {% include 'gestionPermisos/pagination.html' with page=page_obj %}
+        <button type="submit" name="acepta" value="3">Acepta</button>
+        <button type="submit" name="rechaza" value="5">Rechaza</button>
+        </form>
+
+{% endblock %}

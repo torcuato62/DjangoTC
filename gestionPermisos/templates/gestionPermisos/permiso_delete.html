@@ -1,0 +1,10 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+<h2>{{titulo}}</h2>
+    <form method="POST">{% csrf_token %}
+        <p>¿Confirma la eliminación del permiso?</p>
+        <p>{{ permiso }}</p>
+        <button type="submit" class="save btn btn-default" name="confirma" value="0">Confirmar</button>
+        <button type="submit" class="cancel btn btn-default" name="cancela" value="1">Cancelar</button>
+    </form>
+{% endblock %}

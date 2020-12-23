@@ -1,0 +1,22 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+
+    
+<h2>Autorizar Permisos</h2>
+    {% if not request.session.sectores %}
+    <p>Usted no tiene personal a cargo, por lo tanto no está autorizado a acceder a esta página</p>
+    {% else %}
+    <p>Aquí debajo, encontrará la información de Permisos a Autorizar del personal a cargo de {{request.user.first_name}} {{request.user.last_name}}</p>
+    <form method="POST">{% csrf_token %}
+        <table>
+            <thead><th>Seleccione</th><th>Descripción</th></thead>
+            {% for field in permisos %}
+                <tr><td><input type="checkbox" name="idpermiso" value="{{field.perIdpermiso}}"></td> </td><td>{{field.perFechaHora}}{{field.perTPermiso}}-{{field.perUsuario.get_full_name}}</td></tr>
+            {% endfor %}
+        </table>
+        <button type="submit" name="autoriza" value="2">Autoriza</button>
+        <button type="submit" name="rechaza" value="4">Rechaza</button>
+        </form>
+    {% endif %}
+
+{% endblock %}

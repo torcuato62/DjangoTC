@@ -1,0 +1,33 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+    <p>Sector actual del Usuario: {{sector}}</p>
+    <p>Solicita tu permiso: <a href="{% url 'newnew' tpermiso=1 %}" ><button class="btn"><i class="fa fa-clock-o" style="font-size:24px"></i> Tarde </button></a>
+       <a href="{% url 'newnew' tpermiso=3 %}" ><button class="btn"><i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:24px"></i> Art 80</button></a>
+       <a href="{% url 'newnew' tpermiso=4 %}" ><button class="btn"><i class="fa fa-graduation-cap" style="font-size:24px"></i> Estudio</button></a>
+       <a href="{% url 'newnew' tpermiso=5 %}" ><button class="btn"><i class="fa fa-calendar-plus-o" style="font-size:24px"></i> Art 96</button></a>
+    </p>
+    <p>Aquí debajo encontrará información de resumen de sus últimos {{ultspermisos}} permisos solicitados: </p>
+    <ul>
+    {% for permiso in ultimoPermiso %}
+    <li><p>
+        {{permiso.perFechaHora}} - {{permiso.perTPermiso}} - {{permiso.perEstado}} - {{permiso.perUsuarioAutoriza.last_name}}
+        {% if permiso.perEstado.estId == 1 %}
+        <a href="{% url 'permiso_edit' pk=permiso.perIdpermiso tpermiso=permiso.perTPermiso.tperId %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
+        <a href="{% url 'permiso_delete' pk=permiso.perIdpermiso tpermiso=permiso.perTPermiso.tperId %}"><i class="fa fa-eraser" aria-hidden="true"></i> Eliminar</a>
+        {% endif %}
+        {% if permiso.perEstado.estId > 1 and permiso.perVistoSolicitante is None %}
+        <button type="button" id="ver-permiso-marcar" class="bs-modal btn btn-sm " data-form-url="{% url 'permiso_marca' pk=permiso.perIdpermiso tpermiso=permiso.perTPermiso.tperId %}">
+            <span class="fa fa-eye"></span>
+          </button>
+        {% elif permiso.perEstado.estId > 1 and permiso.perVistoSolicitante is not None %}
+        <button type="button" id="ver-permiso" class="bs-modal btn btn-sm " data-form-url="{% url 'permiso_ver' pk=permiso.perIdpermiso tpermiso=permiso.perTPermiso.tperId %}">
+            <span class="fa fa-eye" style="color: green;"></span>
+          </button>
+        {% endif %}    
+</p></li>
+    {% endfor %}
+    </ul>
+    {% include 'gestionPermisos/pagination.html' with page=page_obj %}
+    <p>Usted tiene {{permisosSinVer}} permisos autorizados sin revisar. </p>
+{% endblock %}
+</html>

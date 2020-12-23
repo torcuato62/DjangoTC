@@ -1,0 +1,6 @@
+{% extends 'gestionPermisos/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>{{titulo}}</h2>
+    {% crispy form %}
+{% endblock %}

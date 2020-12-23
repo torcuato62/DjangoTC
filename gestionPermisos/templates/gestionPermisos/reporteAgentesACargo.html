@@ -1,0 +1,13 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+    {% if not request.session.sectores %}
+    <p>Usted no tiene personal a cargo, por lo tanto no está autorizado a acceder a esta página</p>
+    {% else %}
+    <p>Aquí debajo, encontrará la información de Permisos del personal a cargo de {{request.user.first_name}} {{request.user.last_name}}</p>
+    <p>Total: {{cantidad}} permisos de los sectores a cargo.</p>
+    {% for permiso in permisos %}
+    <p>{{permiso.perFechaHora}} - {{permiso.perUsuario.first_name}} - {{permiso.perUsuario.last_name}} - {{permiso.perTPermiso}} - {{permiso.perEstado}} - {{permiso.perUsuarioAcepta.last_name}}</p>
+    {% endfor %}
+    {% include 'gestionPermisos/pagination.html' with page=page_obj %}
+    {% endif %}
+{% endblock %}

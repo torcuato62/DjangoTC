@@ -1,0 +1,15 @@
+{% extends 'gestionPermisos/base.html' %}
+{% block content %}
+    <h1>Información de Agentes del TC</h1>
+    <p>Aquí debajo, encontrará la información de Agentes</p>
+    {% for empleado in empleados %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <p>{{empleado.legLegajo}} - {{empleado.legNombre}} - {{empleado.legEmailLaboral}}</p>
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+    {% endfor %}
+{% endblock %}
